@@ -7,6 +7,7 @@ using System.Text;
 
 namespace FinancialPlannerTests
 {
+    [TestClass]
     public class BankAccountTest
     {
         BankAccountDto testAccount;
@@ -17,15 +18,15 @@ namespace FinancialPlannerTests
         [TestInitialize]
         public void Initialize()
         {
-            var testTransaction1 = new TransactionDto(24.99, false, "Amazon");
-            var testTransaction2 = new TransactionDto(20.00, false, "Work");
+            testTransaction1 = new TransactionDto(24.99, false, "Amazon");
+            testTransaction2 = new TransactionDto(20.00, false, "Work");
             testTransaction1.id = 1;
             testTransaction2.id = 2;
 
-            var testAccountHolder1 = new AccountHolderDto("Andy", "Laughlin");
+            testAccountHolder1 = new AccountHolderDto("Andy", "Laughlin");
             testAccountHolder1.id = 12;
 
-            var testAccount = new BankAccountDto("Andy Current Account", BankAccountType.IND_CURRENT_ACCOUNT);
+            testAccount = new BankAccountDto("Andy Current Account", BankAccountType.IND_CURRENT_ACCOUNT);
             testAccount.accountHolderId = testAccountHolder1.id;
             testAccount.accountNumber = 12345678;
             testAccount.sortCode = 123456;
@@ -50,6 +51,21 @@ namespace FinancialPlannerTests
             transactionIds = testAccount.GetAllTransactionIds();
             var result = transactionIds.Count;
             Assert.AreEqual(2, result);
+        }
+
+        [TestMethod]
+        public void CanCheckIfTransactionIsInThisAccount_true()
+        {
+            var result = testAccount.CheckForTransactionInAccount(testTransaction1);
+            Assert.AreEqual(true, result);
+        }
+
+        [TestMethod]
+        public void CanGetTransactionById_transactionPresent()
+        {
+            var returnedTransaction = testAccount.GetTransactionById(testTransaction1.id);
+            var result = returnedTransaction.id;
+            Assert.AreEqual(1, result);
         }
     }
 }

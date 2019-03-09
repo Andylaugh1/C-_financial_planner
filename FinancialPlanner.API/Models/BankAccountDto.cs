@@ -40,5 +40,30 @@ namespace FinancialPlanner.API.Models
 
             return transactionIds;
         }
+
+        public bool CheckForTransactionInAccount(TransactionDto requestedTransaction)
+        {
+            var requestedId = requestedTransaction.id;
+            foreach (TransactionDto transaction in this.transactions)
+            {
+                if (transaction.id == requestedId)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public TransactionDto GetTransactionById(int id)
+        {
+            foreach (TransactionDto transaction in this.transactions)
+            {
+                if (transaction.id == id)
+                {
+                    return transaction;
+                }
+            }
+            return null;
+        }
     }
 }

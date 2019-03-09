@@ -14,7 +14,7 @@ namespace FinancialPlannerTests
         [TestInitialize]
         public void initialize()
         {
-            AccountHolderDto accountHolder1 = new AccountHolderDto("Andy", "Laughlin");
+            accountHolder1 = new AccountHolderDto("Andy", "Laughlin");
             accountHolder1.id = 10;
         }
 
