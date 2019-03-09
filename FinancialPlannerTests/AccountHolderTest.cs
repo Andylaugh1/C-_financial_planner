@@ -9,13 +9,21 @@ namespace FinancialPlannerTests
     [TestClass]
     public class AccountHolderTest
     {
-        AccountHolderDto AccountHolder1 = new AccountHolderDto("Andy", "Laughlin");
+        AccountHolderDto accountHolder1;
+
+        [TestInitialize]
+        public void initialize()
+        {
+            AccountHolderDto accountHolder1 = new AccountHolderDto("Andy", "Laughlin");
+            accountHolder1.id = 10;
+        }
 
         [TestMethod]
         public void CanGetAccountHolderProperties()
         {
-            Assert.AreEqual("Andy", AccountHolder1.FirstName);
-            Assert.AreEqual("Laughlin", AccountHolder1.Surname);
+            Assert.AreEqual("Andy", accountHolder1.firstName);
+            Assert.AreEqual("Laughlin", accountHolder1.surname);
+            Assert.AreEqual(10, accountHolder1.id);
         }
     }
 }

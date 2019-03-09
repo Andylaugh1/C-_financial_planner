@@ -7,19 +7,19 @@ namespace FinancialPlanner.API.Models
 {
     public class TransactionDto
     {
-        public int Id { get; set; }
-        public double Value { get; set; }
-        public bool IsPositive { get; set; }
-        public string Name { get; set; }
-        public string Party { get; set; }
+        public int id { get; set; }
+        public double value { get; set; }
+        public bool isPositive { get; set; }
+        public string name { get; set; }
+        public string party { get; set; }
 
-        public TransactionDto()
+        public TransactionDto(double value, bool isPositive, string party)
         {
-            this.Id = Id;
-            this.Value = Value;
-            this.IsPositive = IsPositive;
-            this.Name = Name;
-            this.Party = Party;
+            this.id = id;
+            this.value = value;
+            this.isPositive = isPositive;
+            this.name = name;
+            this.party = party;
         }
     }
 }

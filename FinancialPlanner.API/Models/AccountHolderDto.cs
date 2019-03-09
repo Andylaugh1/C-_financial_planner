@@ -7,15 +7,15 @@ namespace FinancialPlanner.API.Models
 {
     public class AccountHolderDto
     {
-        public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string Surname { get; set; }
+        public int id { get; set; }
+        public string firstName { get; set; }
+        public string surname { get; set; }
 
-        public AccountHolderDto(string FirstName, string Surname)
+        public AccountHolderDto(string firstName, string surname)
         {
-            this.Id = Id;
-            this.FirstName = FirstName;
-            this.Surname = Surname;
+            this.id = id;
+            this.firstName = firstName;
+            this.surname = surname;
         }
     }
 }
