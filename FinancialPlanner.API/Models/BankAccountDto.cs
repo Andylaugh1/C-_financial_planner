@@ -84,13 +84,13 @@ namespace FinancialPlanner.API.Models
         {
             var transactionAmount = transaction.value;
             var positiveOrNegativeAmount = 0.00;
-            if (transaction.isPositive = true)
+            if (transaction.isPositive == true)
             {
                 positiveOrNegativeAmount = transactionAmount;
             }
             else
             {
-                positiveOrNegativeAmount = -transactionAmount;
+                positiveOrNegativeAmount = (-transactionAmount);
             }
 
             this.UpdateBalance(positiveOrNegativeAmount);
