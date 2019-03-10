@@ -13,9 +13,10 @@ namespace FinancialPlanner.API.Models
         public BankAccountType accountType { get; set; }
         public List<TransactionDto> transactions { get; set; } = new List<TransactionDto>();
         public int accountHolderId { get; set; }
-        public int accountNumber;
-        public int sortCode;    
-        
+        public int accountNumber { get; set; }
+        public int sortCode { get; set; }
+        public double balance { get; set; }
+
         public BankAccountDto(string accountName, BankAccountType accountType)
         {
             this.id = id;
@@ -25,6 +26,7 @@ namespace FinancialPlanner.API.Models
             this.accountHolderId = accountHolderId;
             this.accountNumber = accountNumber;
             this.sortCode = sortCode;
+            this.balance = balance;
         }
 
         public List<int> GetAllTransactionIds()
@@ -64,6 +66,35 @@ namespace FinancialPlanner.API.Models
                 }
             }
             return null;
+        }
+
+        public void AddNewTransactionToAccount(TransactionDto transaction)
+        {
+            this.transactions.Add(transaction);
+        }
+
+        public void UpdateBalance(double amount)
+        {
+            double newBalance = this.balance += amount;
+            this.balance = newBalance;
+        }
+
+        //Checks if the transaction is positive or negative and then calls the updateBalance and AddToAccountMethods
+        public void ProcessTransactionOnAccount(TransactionDto transaction)
+        {
+            var transactionAmount = transaction.value;
+            var positiveOrNegativeAmount = 0.00;
+            if (transaction.isPositive = true)
+            {
+                positiveOrNegativeAmount = transactionAmount;
+            }
+            else
+            {
+                positiveOrNegativeAmount = -transactionAmount;
+            }
+
+            this.UpdateBalance(positiveOrNegativeAmount);
+            this.AddNewTransactionToAccount(transaction);
         }
     }
 }
