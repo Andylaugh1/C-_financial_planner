@@ -10,23 +10,23 @@ namespace FinancialPlannerTests
     [TestClass]
     public class BankAccountTest
     {
-        BankAccountDto testAccount;
-        TransactionDto testTransaction1;
-        TransactionDto testTransaction2;
-        AccountHolderDto testAccountHolder1;
+        BankAccount testAccount;
+        Transaction testTransaction1;
+        Transaction testTransaction2;
+        AccountHolder testAccountHolder1;
 
         [TestInitialize]
         public void Initialize()
         {
-            testTransaction1 = new TransactionDto(24.99, true, "Amazon");
-            testTransaction2 = new TransactionDto(20.00, true, "Work");
+            testTransaction1 = new Transaction(24.99, true, "Amazon");
+            testTransaction2 = new Transaction(20.00, true, "Work");
             testTransaction1.id = 1;
             testTransaction2.id = 2;
 
-            testAccountHolder1 = new AccountHolderDto("Andy", "Laughlin");
+            testAccountHolder1 = new AccountHolder("Andy", "Laughlin");
             testAccountHolder1.id = 12;
 
-            testAccount = new BankAccountDto("Andy Current Account", BankAccountType.IND_CURRENT_ACCOUNT);
+            testAccount = new BankAccount("Andy Current Account", BankAccountType.IND_CURRENT_ACCOUNT);
             testAccount.accountHolderId = testAccountHolder1.id;
             testAccount.accountNumber = 12345678;
             testAccount.sortCode = 123456;
@@ -81,7 +81,7 @@ namespace FinancialPlannerTests
         [TestMethod]
         public void CanProcessTransactionWhen_TransactionPositive()
         {
-            var testTransaction3 = new TransactionDto(20.00, true, "Work");
+            var testTransaction3 = new Transaction(20.00, true, "Work");
             testTransaction3.id = 3;
             testAccount.ProcessTransactionOnAccount(testTransaction3);
 
@@ -95,7 +95,7 @@ namespace FinancialPlannerTests
         [TestMethod]
         public void CanProcessTransactionWhen_TransactionNegative()
         {
-            var testTransaction3 = new TransactionDto(20.00, false, "Work");
+            var testTransaction3 = new Transaction(20.00, false, "Work");
             testTransaction3.id = 3;
             testAccount.ProcessTransactionOnAccount(testTransaction3);
 

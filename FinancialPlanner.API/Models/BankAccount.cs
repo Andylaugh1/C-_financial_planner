@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace FinancialPlanner.API.Models
 {
-    public class BankAccountDto
+    public class BankAccount
     {
         public int id { get; set; }
         public string accountName { get; set; }
         public BankAccountType accountType { get; set; }
-        public List<TransactionDto> transactions { get; set; } = new List<TransactionDto>();
+        public List<Transaction> transactions { get; set; } = new List<Transaction>();
         public int accountHolderId { get; set; }
         public int accountNumber { get; set; }
         public int sortCode { get; set; }
         public double balance { get; set; }
 
-        public BankAccountDto(string accountName, BankAccountType accountType)
+        public BankAccount(string accountName, BankAccountType accountType)
         {
             this.id = id;
             this.accountName = accountName;
@@ -32,7 +32,7 @@ namespace FinancialPlanner.API.Models
         public List<int> GetAllTransactionIds()
         {
             var transactionIds = new List<int>();
-            foreach (TransactionDto transaction in this.transactions)
+            foreach (Transaction transaction in this.transactions)
             {
                 if (transaction.id != null)
                 {
@@ -43,10 +43,10 @@ namespace FinancialPlanner.API.Models
             return transactionIds;
         }
 
-        public bool CheckForTransactionInAccount(TransactionDto requestedTransaction)
+        public bool CheckForTransactionInAccount(Transaction requestedTransaction)
         {
             var requestedId = requestedTransaction.id;
-            foreach (TransactionDto transaction in this.transactions)
+            foreach (Transaction transaction in this.transactions)
             {
                 if (transaction.id == requestedId)
                 {
@@ -56,9 +56,9 @@ namespace FinancialPlanner.API.Models
             return false;
         }
 
-        public TransactionDto GetTransactionById(int id)
+        public Transaction GetTransactionById(int id)
         {
-            foreach (TransactionDto transaction in this.transactions)
+            foreach (Transaction transaction in this.transactions)
             {
                 if (transaction.id == id)
                 {
@@ -68,7 +68,7 @@ namespace FinancialPlanner.API.Models
             return null;
         }
 
-        public void AddNewTransactionToAccount(TransactionDto transaction)
+        public void AddNewTransactionToAccount(Transaction transaction)
         {
             this.transactions.Add(transaction);
         }
@@ -80,7 +80,7 @@ namespace FinancialPlanner.API.Models
         }
 
         //Checks if the transaction is positive or negative and then calls the updateBalance and AddToAccountMethods
-        public void ProcessTransactionOnAccount(TransactionDto transaction)
+        public void ProcessTransactionOnAccount(Transaction transaction)
         {
             var transactionAmount = transaction.value;
             var positiveOrNegativeAmount = 0.00;

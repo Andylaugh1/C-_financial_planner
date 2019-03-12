@@ -6,12 +6,12 @@ namespace FinancialPlannerTests
     [TestClass]
     public class TransactionTest
     {
-        private TransactionDto transaction1;
+        private Transaction transaction1;
 
         [TestInitialize]
         public void Init()
         {
-            transaction1 = new TransactionDto(24.99, true, "Amazon");
+            transaction1 = new Transaction(24.99, true, "Amazon");
             transaction1.name = "Amazon Order";
         }
 

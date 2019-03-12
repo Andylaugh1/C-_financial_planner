@@ -9,12 +9,12 @@ namespace FinancialPlannerTests
     [TestClass]
     public class AccountHolderTest
     {
-        AccountHolderDto accountHolder1;
+        AccountHolder accountHolder1;
 
         [TestInitialize]
         public void initialize()
         {
-            accountHolder1 = new AccountHolderDto("Andy", "Laughlin");
+            accountHolder1 = new AccountHolder("Andy", "Laughlin");
             accountHolder1.id = 10;
         }
 
