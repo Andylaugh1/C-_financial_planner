@@ -1,6 +1,8 @@
 ﻿using FinancialPlanner.API.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,35 +10,41 @@ namespace FinancialPlanner.API.Models
 {
     public class BankAccount
     {
-        public int id { get; set; }
-        public string accountName { get; set; }
-        public BankAccountType accountType { get; set; }
-        public List<Transaction> transactions { get; set; } = new List<Transaction>();
-        public int accountHolderId { get; set; }
-        public int accountNumber { get; set; }
-        public int sortCode { get; set; }
-        public double balance { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
-        public BankAccount(string accountName, BankAccountType accountType)
+        public string AccountName { get; set; }
+        public BankAccountType AccountType { get; set; }
+        public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
+        public int AccountNumber { get; set; }
+        public int SortCode { get; set; }
+        public double Balance { get; set; }
+
+        [ForeignKey("AccountHolderId")]
+        public virtual AccountHolder AccountHolder { get; set; }
+        public int AccountHolderId { get; set; }
+
+        public BankAccount()
         {
-            this.id = id;
-            this.accountName = accountName;
-            this.accountType = accountType;
-            this.transactions = transactions;
-            this.accountHolderId = accountHolderId;
-            this.accountNumber = accountNumber;
-            this.sortCode = sortCode;
-            this.balance = balance;
+            this.Id = Id;
+            this.AccountName = AccountName;
+            this.AccountType = AccountType;
+            this.Transactions = Transactions;
+            this.AccountHolderId = AccountHolderId;
+            this.AccountNumber = AccountNumber;
+            this.SortCode = SortCode;
+            this.Balance = Balance;
         }
 
         public List<int> GetAllTransactionIds()
         {
             var transactionIds = new List<int>();
-            foreach (Transaction transaction in this.transactions)
+            foreach (Transaction transaction in this.Transactions)
             {
-                if (transaction.id != null)
+                if (transaction.Id != null)
                 {
-                    transactionIds.Add(transaction.id);
+                    transactionIds.Add(transaction.Id);
                 }
             }
 
@@ -45,10 +53,10 @@ namespace FinancialPlanner.API.Models
 
         public bool CheckForTransactionInAccount(Transaction requestedTransaction)
         {
-            var requestedId = requestedTransaction.id;
-            foreach (Transaction transaction in this.transactions)
+            var requestedId = requestedTransaction.Id;
+            foreach (Transaction transaction in this.Transactions)
             {
-                if (transaction.id == requestedId)
+                if (transaction.Id == requestedId)
                 {
                     return true;
                 }
@@ -58,9 +66,9 @@ namespace FinancialPlanner.API.Models
 
         public Transaction GetTransactionById(int id)
         {
-            foreach (Transaction transaction in this.transactions)
+            foreach (Transaction transaction in this.Transactions)
             {
-                if (transaction.id == id)
+                if (transaction.Id == id)
                 {
                     return transaction;
                 }
@@ -70,21 +78,21 @@ namespace FinancialPlanner.API.Models
 
         public void AddNewTransactionToAccount(Transaction transaction)
         {
-            this.transactions.Add(transaction);
+            this.Transactions.Add(transaction);
         }
 
         public void UpdateBalance(double amount)
         {
-            double newBalance = this.balance += amount;
-            this.balance = newBalance;
+            double newBalance = this.Balance += amount;
+            this.Balance = newBalance;
         }
 
         //Checks if the transaction is positive or negative and then calls the updateBalance and AddToAccountMethods
         public void ProcessTransactionOnAccount(Transaction transaction)
         {
-            var transactionAmount = transaction.value;
+            var transactionAmount = transaction.Value;
             var positiveOrNegativeAmount = 0.00;
-            if (transaction.isPositive == true)
+            if (transaction.IsPositive == true)
             {
                 positiveOrNegativeAmount = transactionAmount;
             }

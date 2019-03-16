@@ -11,17 +11,20 @@ namespace FinancialPlannerTests
         [TestInitialize]
         public void Init()
         {
-            transaction1 = new Transaction(24.99, true, "Amazon");
-            transaction1.name = "Amazon Order";
+            transaction1 = new Transaction();
+            transaction1.Name = "Amazon Order";
+            transaction1.Value = 24.99;
+            transaction1.IsPositive = true;
+            transaction1.Party = "Amazon";
         }
 
         [TestMethod]
         public void CanGetTransactionValueProperties()
         {
-            Assert.AreEqual(24.99, transaction1.value);
-            Assert.AreEqual(true, transaction1.isPositive);
-            Assert.AreEqual("Amazon Order", transaction1.name);
-            Assert.AreEqual("Amazon", transaction1.party);
+            Assert.AreEqual(24.99, transaction1.Value);
+            Assert.AreEqual(true, transaction1.IsPositive);
+            Assert.AreEqual("Amazon Order", transaction1.Name);
+            Assert.AreEqual("Amazon", transaction1.Party);
         }
     }
 }

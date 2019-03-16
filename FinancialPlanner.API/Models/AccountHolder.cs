@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,15 +9,18 @@ namespace FinancialPlanner.API.Models
 {
     public class AccountHolder
     {
-        public int id { get; set; }
-        public string firstName { get; set; }
-        public string surname { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 
-        public AccountHolder(string firstName, string surname)
+        public int Id { get; set; }
+        public string FirstName { get; set; }
+        public string Surname { get; set; }
+
+        public AccountHolder()
         {
-            this.id = id;
-            this.firstName = firstName;
-            this.surname = surname;
+            this.Id = Id;
+            this.FirstName = FirstName;
+            this.Surname = Surname;
         }
     }
 }

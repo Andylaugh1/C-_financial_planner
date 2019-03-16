@@ -14,16 +14,18 @@ namespace FinancialPlannerTests
         [TestInitialize]
         public void initialize()
         {
-            accountHolder1 = new AccountHolder("Andy", "Laughlin");
-            accountHolder1.id = 10;
+            accountHolder1 = new AccountHolder();
+            accountHolder1.Id = 10;
+            accountHolder1.FirstName = "Andy";
+            accountHolder1.Surname = "Laughlin";
         }
 
         [TestMethod]
         public void CanGetAccountHolderProperties()
         {
-            Assert.AreEqual("Andy", accountHolder1.firstName);
-            Assert.AreEqual("Laughlin", accountHolder1.surname);
-            Assert.AreEqual(10, accountHolder1.id);
+            Assert.AreEqual("Andy", accountHolder1.FirstName);
+            Assert.AreEqual("Laughlin", accountHolder1.Surname);
+            Assert.AreEqual(10, accountHolder1.Id);
         }
     }
 }
