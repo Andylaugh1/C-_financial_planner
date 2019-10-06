@@ -16,6 +16,11 @@ namespace FinancialPlanner.API.Data_Access_Layer
             Database.EnsureCreated();
         }
 
+        public FinancialPlannerContext()
+        {
+
+        }
+
         public DbSet<AccountHolder> AccountHolders { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<BankAccount> BankAccounts { get; set; }
