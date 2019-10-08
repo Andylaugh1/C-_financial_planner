@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Npgsql;
 
 namespace FinancialPlanner.API
 {
@@ -32,8 +33,10 @@ namespace FinancialPlanner.API
                 .AddMvcOptions(o => o.OutputFormatters.Add(
                     new XmlDataContractSerializerOutputFormatter()));
 
-            var connectionString = @"Server=andylairtslt\sqlexpress;Database=FinancialPlannerDB;Trusted_Connection=True;";
-            services.AddDbContext<FinancialPlannerContext>(o => o.UseSqlServer(connectionString));
+            var connectionString = "User ID=user;Password=!3Reshme8;Host=localhost;Port=5432;Database=FinancialPlanner;Pooling=true;";
+
+ 
+            services.AddDbContext<FinancialPlannerContext>(options => options.UseNpgsql(connectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

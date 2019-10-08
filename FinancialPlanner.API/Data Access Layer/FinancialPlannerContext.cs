@@ -18,7 +18,6 @@ namespace FinancialPlanner.API.Data_Access_Layer
 
         public FinancialPlannerContext()
         {
-
         }
 
         public DbSet<AccountHolder> AccountHolders { get; set; }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FinancialPlanner.API.Models;
 
 namespace FinancialPlanner.API.Service_Layer
 {
@@ -13,6 +14,11 @@ namespace FinancialPlanner.API.Service_Layer
         public MainService(IMainRepository repo)
         {
             this.Repo = repo;
+        }
+
+        public IEnumerable<Transaction> GetAllTransactions()
+        {
+            return this.Repo.GetAllTransactions();
         }
     }
 }

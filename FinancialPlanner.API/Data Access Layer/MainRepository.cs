@@ -32,7 +32,7 @@ namespace FinancialPlanner.API.Data_Access_Layer
             }
         }
 
-        public virtual List<Transaction> GetTransactionsForIdSet(IList<int> transactionIds)
+        public virtual List<Transaction> GetTransactionsForIdSet(IEnumerable<int> transactionIds)
         {
             using(var cnt = new FinancialPlannerContext())
             {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FinancialPlanner.API.Data_Access_Layer;
 using FinancialPlanner.API.Models;
+using FinancialPlanner.API.Service_Layer;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,11 +14,19 @@ namespace FinancialPlanner.API.Controllers
     [Route("api/transactions")]
     public class TransactionApiController : Controller
     {
-        private MainRepository repository;
+
+        private readonly IMainService Service;
+
+        public TransactionApiController(IMainService service)
+        {
+            this.Service = service;
+        }
         // GET: api/<controller>
         [HttpGet]
-        public IEnumerable<Transaction> Get()
+        public IEnumerable<Transaction> GetAllTransactions()
         {
+            
+            
             return new List<Transaction>();
         }
 

@@ -10,7 +10,7 @@ namespace FinancialPlanner.API.Data_Access_Layer
     {
 
         List<Transaction> GetAllTransactions();
-        List<Transaction> GetTransactionsForIdSet(IList<int> idSet);
+        List<Transaction> GetTransactionsForIdSet(IEnumerable<int> idSet);
         Transaction GetTransactionById(int id);
     }
 }
