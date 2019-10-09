@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FinancialPlanner.API.Controllers;
 using FinancialPlanner.API.Data_Access_Layer;
+using FinancialPlanner.API.Service_Layer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -37,6 +38,17 @@ namespace FinancialPlanner.API
 
  
             services.AddDbContext<FinancialPlannerContext>(options => options.UseNpgsql(connectionString));
+            services.AddScoped<IMainRepository, MainRepository>();
+            services.AddScoped<TransactionService, TransactionService>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,12 +58,23 @@ namespace FinancialPlanner.API
             {
                 app.UseDeveloperExceptionPage();
             }
+            
+            app.UseHttpsRedirection();
+
+            app.UseRouting();
+
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
             app.Run(async (context) =>
             {
                 await context.Response.WriteAsync("Hello World!");
             });
-
+            
+            app.UseCors("CorsPolicy");
+            app.UseMvc();
+            
             financialPlannerContext.EnsureSeedDataForContext();
         }
     }

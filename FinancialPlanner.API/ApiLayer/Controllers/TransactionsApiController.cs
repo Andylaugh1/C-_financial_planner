@@ -11,13 +11,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FinancialPlanner.API.Controllers
 {
+    
     [Route("api/transactions")]
+    [ApiController]
     public class TransactionApiController : Controller
     {
+        private readonly TransactionService Service;
 
-        private readonly IMainService Service;
-
-        public TransactionApiController(IMainService service)
+        public TransactionApiController(TransactionService service)
         {
             this.Service = service;
         }
@@ -25,16 +26,14 @@ namespace FinancialPlanner.API.Controllers
         [HttpGet]
         public IEnumerable<Transaction> GetAllTransactions()
         {
-            
-            
-            return new List<Transaction>();
+            return this.Service.GetAll();
         }
 
         // GET api/<controller>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Transaction Get(int id)
         {
-            return "value";
+            return this.Service.GetById(id);
         }
 
         // POST api/<controller>

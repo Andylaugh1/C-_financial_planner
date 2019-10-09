@@ -9,8 +9,8 @@ namespace FinancialPlanner.API.Data_Access_Layer
     public interface IMainRepository
     {
 
-        List<Transaction> GetAllTransactions();
-        List<Transaction> GetTransactionsForIdSet(IEnumerable<int> idSet);
+        IEnumerable<Transaction> GetAllTransactions();
+        IEnumerable<Transaction> GetTransactionsForIdSet(IEnumerable<int> idSet);
         Transaction GetTransactionById(int id);
     }
 }

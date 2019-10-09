@@ -9,40 +9,33 @@ namespace FinancialPlanner.API.Data_Access_Layer
 {
     public class MainRepository : IMainRepository
     {
+        private FinancialPlannerContext Context;
 
-        public MainRepository()
+        public MainRepository(FinancialPlannerContext context)
         {
+            this.Context = context;
         }
 
-        public virtual List<Transaction> GetAllTransactions()
+        public virtual IEnumerable<Transaction> GetAllTransactions()
         {
-            using (var cnt = new FinancialPlannerContext())
-            {
-                return cnt.Transactions.ToList();
-            }
+            return this.Context.Transactions.ToList();
         }
 
         public virtual Transaction GetTransactionById(int transactionId)
         {
-            using (var cnt = new FinancialPlannerContext())
-            {
-                Transaction transaction;
-                transaction = cnt.Transactions.Where(t => t.Id == transactionId).FirstOrDefault();
-                return transaction;
-            }
+            Transaction transaction;
+            transaction = this.Context.Transactions.Where(t => t.Id == transactionId).FirstOrDefault();
+            return transaction;
         }
 
-        public virtual List<Transaction> GetTransactionsForIdSet(IEnumerable<int> transactionIds)
+        public virtual IEnumerable<Transaction> GetTransactionsForIdSet(IEnumerable<int> transactionIds)
         {
-            using(var cnt = new FinancialPlannerContext())
+            var transactionsToReturn = new List<Transaction>();
+            foreach(var transactionId in transactionIds)
             {
-                var transactionsToReturn = new List<Transaction>();
-                foreach(var transactionId in transactionIds)
-                {
-                    transactionsToReturn.Add(cnt.Transactions.Where(t => t.Id == transactionId).FirstOrDefault());
-                }
-                return transactionsToReturn;
+                transactionsToReturn.Add(this.Context.Transactions.Where(t => t.Id == transactionId).FirstOrDefault());
             }
+            return transactionsToReturn;
         }
     }
 }
