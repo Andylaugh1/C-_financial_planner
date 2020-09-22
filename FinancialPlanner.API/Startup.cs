@@ -34,7 +34,7 @@ namespace FinancialPlanner.API
                 .AddMvcOptions(o => o.OutputFormatters.Add(
                     new XmlDataContractSerializerOutputFormatter()));
 
-            var connectionString = "User ID=user;Password=!3Reshme8;Host=localhost;Port=5432;Database=FinancialPlanner;Pooling=true;";
+            var connectionString = "User ID=AndyTL;Password=WK3Reshme8;Host=localhost;Port=5432;Database=FinancialPlanner;Pooling=true;";
 
  
             services.AddDbContext<FinancialPlannerContext>(options => options.UseNpgsql(connectionString));
@@ -60,12 +60,12 @@ namespace FinancialPlanner.API
             }
             
             app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+//
+//            app.UseRouting();
+//
+//            app.UseAuthorization();
+//
+//            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
             app.Run(async (context) =>
             {
